@@ -1,7 +1,18 @@
 /**
+ * Represents what products can be stocked and ordered.
+ */
+export type Catalog = {
+  /** Unique identifier of the catalog */
+  catalog_id: number
+
+  /** List of products in the catalog */
+  products: CatalogProduct[]
+}
+
+/**
  * Represents a product in the catalog.
  */
-export type Product = {
+export type CatalogProduct = {
   /** Unique identifier of the product */
   product_id: number;
 

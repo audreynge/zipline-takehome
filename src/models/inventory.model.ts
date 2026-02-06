@@ -10,4 +10,6 @@ export type Inventory = {
 
   /** Number of units of the product currently in stock */
   quantity: number;
+
+  // nest_id?
 }
