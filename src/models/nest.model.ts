@@ -1,3 +1,5 @@
+// this is for a future extension
+
 /**
  * Represents a distribution center at Zipline. Nests have:
  * - an inventory of products

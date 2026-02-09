@@ -1,14 +1,21 @@
-import express from 'express';
+import { Router } from 'express';
 
-const app = express();
+const router = Router();
 
-app.post('/init-catalog', ()=>{});
+router.post('/init-catalog', (req, res) => {
+  res.json({ message: 'Catalog initialized' });
+});
 
-app.post('/process-order', ()=>{});
+router.post('/process-order', (req, res) => {
+  res.json({ message: 'Order processed' });
+});
 
-app.post('/process-restock', ()=>{});
+router.post('/process-restock', (req, res) => {
+  res.json({ message: 'Restocked successfully' });
+});
 
-app.post('/ship-package', ()=>{});
+router.post('/ship-package', (req, res) => {
+  res.json({ message: 'Package shipped' });
+});
 
-
-export default app;
+export default router;

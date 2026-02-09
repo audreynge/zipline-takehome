@@ -1,18 +1,24 @@
-/**
- * Represents what products can be stocked and ordered.
- */
-export type Catalog = {
-  /** Unique identifier of the catalog */
-  catalog_id: number
 
-  /** List of products in the catalog */
-  products: CatalogProduct[]
-}
+// future: different catalogs
+// /**
+//  * Represents what products can be stocked and ordered.
+//  */
+// export type Catalog = {
+//   /** Unique identifier of the catalog */
+//   catalog_id: number
+
+//   /** List of products in the catalog */
+//   products: CatalogProduct[]
+// }
 
 /**
  * Represents a product in the catalog.
  */
 export type CatalogProduct = {
+  // future: different catalogs
+  // /** Catalog ID that the product is associated with */
+  // catalog_id: number;
+
   /** Unique identifier of the product */
   product_id: number;
 

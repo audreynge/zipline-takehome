@@ -12,7 +12,7 @@ export type Order = {
 /**
  * Represents a requested product from a hospital.
  */
-export type OrderItem ={
+export type OrderItem = {
   /** The ID of the requested product */
   product_id: number;
 
