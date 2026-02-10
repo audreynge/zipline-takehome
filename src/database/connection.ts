@@ -23,4 +23,8 @@ export const initDb = async (): Promise<void> => {
   console.log('Database schema initialized');
 };
 
+export const closeDb = async (): Promise<void> => {
+  await pool.end();
+};
+
 export default pool;
