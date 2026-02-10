@@ -13,6 +13,7 @@
 
 /**
  * Represents a product in the catalog.
+ * (stored in products table)
  */
 export type CatalogProduct = {
   // future: different catalogs

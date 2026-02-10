@@ -17,14 +17,9 @@ export class CatalogService {
    * @param productInfo 
    */
   async initCatalog(productInfo: CatalogProduct[]) {
-    try {
-      for (const product of productInfo) {
-        await this.catalogRepo.insertProduct(product);
-        await this.inventoryRepo.createInventoryItem(product.product_id);
-      }
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to initialize catalog');
+    for (const product of productInfo) {
+      await this.catalogRepo.insertProduct(product);
+      await this.inventoryRepo.createInventoryItem(product.product_id);
     }
   }
 
@@ -34,11 +29,6 @@ export class CatalogService {
    * @returns the product
    */
   async getProduct(productId: number) {
-    try {
-      return await this.catalogRepo.getProduct(productId);
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to get product: ${error}`);
-    }
+    return await this.catalogRepo.getProduct(productId);
   }
 }

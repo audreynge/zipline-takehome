@@ -1,4 +1,3 @@
-import { CatalogRepository } from '../repositories/catalog.repository.ts';
 import type { Shipment, ShipmentItem } from '../models/shipment.model.ts';
 import { CatalogService } from './catalog.service.ts';
 
@@ -45,11 +44,12 @@ export class ShipmentService {
       while (remainingQty > 0) {
         let spaceLeft = MAX_PACKAGE_MASS_G - currentMass;
 
-        // Current package can't fit another unit — finalize and start new
+        // since the current package cant fit, start a new shipment
         if (spaceLeft < unitMass) {
           if (currentPackage.length > 0) {
             packages.push(currentPackage);
           }
+          // reset current package and mass
           currentPackage = [];
           currentMass = 0;
           spaceLeft = MAX_PACKAGE_MASS_G;
@@ -79,12 +79,7 @@ export class ShipmentService {
    * Prints the shipment to the console.
    * @param shipment the shipment to be fulfilled
    */
-  private async shipPackage(shipment: Shipment): Promise<void> {
-    try {
-      console.log('SHIPMENT:', JSON.stringify(shipment));
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to ship package: ${error}`);
-    }
+  async shipPackage(shipment: Shipment): Promise<void> {
+    console.log('SHIPMENT:', JSON.stringify(shipment));
   }
 }

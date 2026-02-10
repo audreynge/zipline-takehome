@@ -12,13 +12,8 @@ export class InventoryService {
    * @param restock the list of products to be restocked
    */
   async processStock(restock: { product_id: number, quantity: number }[]) {
-    try {
-      for (const item of restock) {
-        await this.inventoryRepo.addStock(item.product_id, item.quantity);
-      }
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to process stock');
+    for (const item of restock) {
+      await this.inventoryRepo.addStock(item.product_id, item.quantity);
     }
   }
 
@@ -28,12 +23,7 @@ export class InventoryService {
    * @param quantity the quantity of stock to remove
    */
   async removeStock(productId: number, quantity: number) {
-    try {
-      await this.inventoryRepo.removeStock(productId, quantity);
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to remove stock');
-    }
+    await this.inventoryRepo.removeStock(productId, quantity);
   }
 
   /**
@@ -42,11 +32,6 @@ export class InventoryService {
    * @returns quantity of the product
    */
   async getQuantity(productId: number) {
-    try {
-      return await this.inventoryRepo.getQuantity(productId);
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to get quantity');
-    }
+    return await this.inventoryRepo.getQuantity(productId);
   }
 }

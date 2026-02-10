@@ -1,4 +1,4 @@
-import pool from '../db.ts';
+import pool from '../database/connection.ts';
 import type { CatalogProduct } from "../models/catalog.model.js";
 
 export class CatalogRepository {
@@ -24,17 +24,12 @@ export class CatalogRepository {
    * @returns the product
    */
   async getProduct(productId: number) {
-    try {
-      const result = await pool.query(
-      `
-      SELECT * FROM products WHERE product_id = $1
-      `,
-      [productId]
-    );
-    return result.rows[0];
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to get product: ${error}`);
-    }
+    const result = await pool.query(
+    `
+    SELECT * FROM products WHERE product_id = $1
+    `,
+    [productId]
+  );
+  return result.rows[0];
   }
 }
