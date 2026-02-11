@@ -1,3 +1,5 @@
+import { jest, describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+
 /**
  * End-to-end tests for the order fulfillment flow
  */
@@ -124,7 +126,7 @@ describe('Order fulfillment', () => {
   let catalogService: CatalogService;
   let inventoryService: InventoryService;
   let orderService: OrderService;
-  let logSpy: jest.SpyInstance;
+  let logSpy: jest.Spied<typeof console.log>;
 
   beforeEach(async () => {
     const catalogRepo = new FakeCatalogRepository();
@@ -140,7 +142,7 @@ describe('Order fulfillment', () => {
       shipmentService as any,
     );
 
-    logSpy = jest.spyOn(console, 'log').mockImplementation();
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
     await catalogService.initCatalog(CATALOG);
   });
@@ -161,7 +163,7 @@ describe('Order fulfillment', () => {
   const getShipments = (): { order_id: number; shipped: { product_id: number; quantity: number }[] }[] => {
     return logSpy.mock.calls
       .filter((call: any[]) => typeof call[0] === 'string' && call[0].startsWith('SHIPMENT:'))
-      .map((call: any[]) => JSON.parse(call[0].replace('SHIPMENT: ', '')));
+      .map((call: any[]) => JSON.parse(call[1] as string));
   }
 
   /** Sums shipped quantities per product across all shipments for a given order */

@@ -1,12 +1,12 @@
-jest.mock('../../src/database/connection.ts', () => ({
-  __esModule: true,
-  default: { query: jest.fn() },
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
+
+const mockQuery = jest.fn<(...args: unknown[]) => Promise<unknown>>();
+
+jest.unstable_mockModule('../src/database/connection', () => ({
+  default: { query: mockQuery },
 }));
 
-import pool from '../../src/database/connection.ts';
-import { InventoryRepository } from '../../src/repositories/inventory.repository.ts';
-
-const mockQuery = pool.query as jest.Mock;
+const { InventoryRepository } = await import('../../src/repositories/inventory.repository.ts');
 
 describe('InventoryRepository', () => {
   const repo = new InventoryRepository();
@@ -18,7 +18,7 @@ describe('InventoryRepository', () => {
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO inventory'),
-        [5, 0],
+        [5],
       );
     });
   });

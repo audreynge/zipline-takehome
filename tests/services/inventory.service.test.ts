@@ -1,15 +1,16 @@
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { InventoryService } from '../../src/services/inventory.service.ts';
 
 describe('InventoryService', () => {
-  let mockAddStock: jest.Mock;
-  let mockRemoveStock: jest.Mock;
-  let mockGetQuantity: jest.Mock;
+  let mockAddStock: jest.Mock<(productId: number, quantity: number) => Promise<void>>;
+  let mockRemoveStock: jest.Mock<(productId: number, quantity: number) => Promise<void>>;
+  let mockGetQuantity: jest.Mock<(productId: number) => Promise<number>>;
   let service: InventoryService;
 
   beforeEach(() => {
-    mockAddStock = jest.fn().mockResolvedValue(undefined);
-    mockRemoveStock = jest.fn().mockResolvedValue(undefined);
-    mockGetQuantity = jest.fn();
+    mockAddStock = jest.fn<(productId: number, quantity: number) => Promise<void>>().mockResolvedValue(undefined);
+    mockRemoveStock = jest.fn<(productId: number, quantity: number) => Promise<void>>().mockResolvedValue(undefined);
+    mockGetQuantity = jest.fn<(productId: number) => Promise<number>>();
 
     const inventoryRepo = {
       addStock: mockAddStock,

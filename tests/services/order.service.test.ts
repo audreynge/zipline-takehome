@@ -1,25 +1,28 @@
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { OrderService } from '../../src/services/order.service.ts';
+import type { Order, OrderItem } from '../../src/models/order.model.ts';
+import type { ShipmentItem } from '../../src/models/shipment.model.ts';
 
 describe('OrderService', () => {
-  let mockInsertOrder: jest.Mock;
-  let mockInsertPendingOrder: jest.Mock;
-  let mockGetPendingOrders: jest.Mock;
-  let mockUpdatePendingOrder: jest.Mock;
-  let mockRemovePendingOrder: jest.Mock;
-  let mockGetQuantity: jest.Mock;
-  let mockRemoveStock: jest.Mock;
-  let mockShipItems: jest.Mock;
+  let mockInsertOrder: jest.Mock<(order: Order) => Promise<void>>;
+  let mockInsertPendingOrder: jest.Mock<(order: Order) => Promise<void>>;
+  let mockGetPendingOrders: jest.Mock<() => Promise<Order[]>>;
+  let mockUpdatePendingOrder: jest.Mock<(orderId: number, remaining: OrderItem[]) => Promise<void>>;
+  let mockRemovePendingOrder: jest.Mock<(orderId: number) => Promise<void>>;
+  let mockGetQuantity: jest.Mock<(productId: number) => Promise<number>>;
+  let mockRemoveStock: jest.Mock<(productId: number, quantity: number) => Promise<void>>;
+  let mockShipItems: jest.Mock<(orderId: number, items: ShipmentItem[]) => Promise<void>>;
   let service: OrderService;
 
   beforeEach(() => {
-    mockInsertOrder = jest.fn().mockResolvedValue(undefined);
-    mockInsertPendingOrder = jest.fn().mockResolvedValue(undefined);
-    mockGetPendingOrders = jest.fn().mockResolvedValue([]);
-    mockUpdatePendingOrder = jest.fn().mockResolvedValue(undefined);
-    mockRemovePendingOrder = jest.fn().mockResolvedValue(undefined);
-    mockGetQuantity = jest.fn();
-    mockRemoveStock = jest.fn().mockResolvedValue(undefined);
-    mockShipItems = jest.fn().mockResolvedValue(undefined);
+    mockInsertOrder = jest.fn<(order: Order) => Promise<void>>().mockResolvedValue(undefined);
+    mockInsertPendingOrder = jest.fn<(order: Order) => Promise<void>>().mockResolvedValue(undefined);
+    mockGetPendingOrders = jest.fn<() => Promise<Order[]>>().mockResolvedValue([]);
+    mockUpdatePendingOrder = jest.fn<(orderId: number, remaining: OrderItem[]) => Promise<void>>().mockResolvedValue(undefined);
+    mockRemovePendingOrder = jest.fn<(orderId: number) => Promise<void>>().mockResolvedValue(undefined);
+    mockGetQuantity = jest.fn<(productId: number) => Promise<number>>();
+    mockRemoveStock = jest.fn<(productId: number, quantity: number) => Promise<void>>().mockResolvedValue(undefined);
+    mockShipItems = jest.fn<(orderId: number, items: ShipmentItem[]) => Promise<void>>().mockResolvedValue(undefined);
 
     const orderRepo = {
       insertOrder: mockInsertOrder,

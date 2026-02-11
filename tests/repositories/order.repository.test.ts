@@ -1,12 +1,12 @@
-jest.mock('../../src/database/connection.ts', () => ({
-  __esModule: true,
-  default: { query: jest.fn() },
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
+
+const mockQuery = jest.fn<(...args: unknown[]) => Promise<unknown>>();
+
+jest.unstable_mockModule('../src/database/connection', () => ({
+  default: { query: mockQuery },
 }));
 
-import pool from '../../src/database/connection.ts';
-import { OrderRepository } from '../../src/repositories/order.repository.ts';
-
-const mockQuery = pool.query as jest.Mock;
+const { OrderRepository } = await import('../../src/repositories/order.repository.ts');
 
 describe('OrderRepository', () => {
   const repo = new OrderRepository();

@@ -1,15 +1,17 @@
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { CatalogService } from '../../src/services/catalog.service.ts';
+import type { CatalogProduct } from '../../src/models/catalog.model.ts';
 
 describe('CatalogService', () => {
-  let mockInsertProduct: jest.Mock;
-  let mockCreateInventoryItem: jest.Mock;
-  let mockGetProduct: jest.Mock;
+  let mockInsertProduct: jest.Mock<(product: CatalogProduct) => Promise<void>>;
+  let mockCreateInventoryItem: jest.Mock<(productId: number) => Promise<void>>;
+  let mockGetProduct: jest.Mock<(productId: number) => Promise<CatalogProduct | undefined>>;
   let service: CatalogService;
 
   beforeEach(() => {
-    mockInsertProduct = jest.fn().mockResolvedValue(undefined);
-    mockGetProduct = jest.fn();
-    mockCreateInventoryItem = jest.fn().mockResolvedValue(undefined);
+    mockInsertProduct = jest.fn<(product: CatalogProduct) => Promise<void>>().mockResolvedValue(undefined);
+    mockGetProduct = jest.fn<(productId: number) => Promise<CatalogProduct | undefined>>();
+    mockCreateInventoryItem = jest.fn<(productId: number) => Promise<void>>().mockResolvedValue(undefined);
 
     const catalogRepo = { insertProduct: mockInsertProduct, getProduct: mockGetProduct };
     const inventoryRepo = { createInventoryItem: mockCreateInventoryItem };
