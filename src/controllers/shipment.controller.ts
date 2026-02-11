@@ -1,13 +1,13 @@
 import type { Request, Response } from 'express';
-import { ShipmentService } from '../services/shipment.service.ts';
+import type { ShipmentService } from '../services/shipment.service.ts';
 import { AppError } from '../middleware/app-error.ts';
 import type { Shipment } from '../models/shipment.model.ts';
 
 export class ShipmentController {
   private shipmentService: ShipmentService;
 
-  constructor() {
-    this.shipmentService = new ShipmentService();
+  constructor(shipmentService: ShipmentService) {
+    this.shipmentService = shipmentService;
   }
 
   async shipPackage(req: Request, res: Response) {

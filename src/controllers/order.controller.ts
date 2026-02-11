@@ -1,13 +1,13 @@
 import type { Request, Response } from 'express';
-import { OrderService } from '../services/order.service.ts';
+import type { OrderService } from '../services/order.service.ts';
 import { AppError } from '../middleware/app-error.ts';
 import type { Order } from '../models/order.model.ts';
 
 export class OrderController {
   private orderService: OrderService;
 
-  constructor() {
-    this.orderService = new OrderService();
+  constructor(orderService: OrderService) {
+    this.orderService = orderService;
   }
 
   async processOrder(req: Request, res: Response) {

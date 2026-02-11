@@ -10,8 +10,8 @@ const MAX_PACKAGE_MASS_G = 1800;
 export class ShipmentService {
   private catalogService: CatalogService;
 
-  constructor() {
-    this.catalogService = new CatalogService();
+  constructor(catalogService: CatalogService) {
+    this.catalogService = catalogService;
   }
 
   /**

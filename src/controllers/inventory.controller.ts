@@ -1,15 +1,15 @@
 import type { Request, Response } from 'express';
-import { InventoryService } from '../services/inventory.service.ts';
-import { OrderService } from '../services/order.service.ts';
+import type { InventoryService } from '../services/inventory.service.ts';
+import type { OrderService } from '../services/order.service.ts';
 import { AppError } from '../middleware/app-error.ts';
 
 export class InventoryController {
   private inventoryService: InventoryService;
   private orderService: OrderService;
 
-  constructor() {
-    this.inventoryService = new InventoryService();
-    this.orderService = new OrderService();
+  constructor(inventoryService: InventoryService, orderService: OrderService) {
+    this.inventoryService = inventoryService;
+    this.orderService = orderService;
   }
 
   async processRestock(req: Request, res: Response) {

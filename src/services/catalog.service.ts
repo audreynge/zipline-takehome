@@ -6,9 +6,9 @@ export class CatalogService {
   private catalogRepo: CatalogRepository;
   private inventoryRepo: InventoryRepository;
 
-  constructor() {
-    this.catalogRepo = new CatalogRepository();
-    this.inventoryRepo = new InventoryRepository();
+  constructor(catalogRepo: CatalogRepository, inventoryRepo: InventoryRepository) {
+    this.catalogRepo = catalogRepo;
+    this.inventoryRepo = inventoryRepo;
   }
 
   /**

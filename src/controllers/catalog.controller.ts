@@ -1,12 +1,12 @@
-import { CatalogService } from '../services/catalog.service.ts';
+import type { CatalogService } from '../services/catalog.service.ts';
 import type { Request, Response } from 'express';
 import { AppError } from '../middleware/app-error.ts';
 
 export class CatalogController {
   private catalogService: CatalogService;
 
-  constructor() {
-    this.catalogService = new CatalogService();
+  constructor(catalogService: CatalogService) {
+    this.catalogService = catalogService;
   }
 
   /**

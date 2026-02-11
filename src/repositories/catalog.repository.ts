@@ -13,6 +13,7 @@ export class CatalogRepository {
       `
       INSERT INTO products (product_id, product_name, mass_g) 
       VALUES ($1, $2, $3)
+      ON CONFLICT (product_id) DO NOTHING
       `,
       [product.product_id, product.product_name, product.mass_g]
     );

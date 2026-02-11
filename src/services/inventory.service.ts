@@ -3,8 +3,8 @@ import { InventoryRepository } from '../repositories/inventory.repository.ts';
 export class InventoryService {
   private inventoryRepo: InventoryRepository;
 
-  constructor() {
-    this.inventoryRepo = new InventoryRepository();
+  constructor(inventoryRepo: InventoryRepository) {
+    this.inventoryRepo = inventoryRepo;
   }
 
   /**

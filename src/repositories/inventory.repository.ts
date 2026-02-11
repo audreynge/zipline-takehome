@@ -12,6 +12,7 @@ export class InventoryRepository {
       `
       INSERT INTO inventory (product_id, quantity)
       VALUES ($1, 0)
+      ON CONFLICT (product_id) DO NOTHING
       `,
       [productId]
     );
@@ -43,7 +44,7 @@ export class InventoryRepository {
       `
       UPDATE inventory
       SET quantity = quantity - $1
-      WHERE product_id = $2
+      WHERE product_id = $2 AND quantity >= $1
       `,
       [quantity, productId]
     )
